@@ -1,12 +1,3 @@
-
-/**
-  * Variables
-  */
-  
-:root {
-  --colorSize: 48px;
-}
-
 /**
  * Fix user-agent
  */
@@ -23,30 +14,46 @@ html, body {
 }
 
 input[type=color]{
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  margin: 0;
-  border: 0;
-  padding: 0;
-  width: 0;
-  height: 0;
-  background: white;
-  margin: calc(var(--colorSize)/-2) 0 0 calc(var(--colorSize)/-2);
+   -webkit-appearance: none;
+  position:relative;
 }
   
-input[type=color]::before{
-  content: '';
-  display: block;
-  background: var(--value);
-  text-transform: uppercase;
-  width: var(--colorSize);
-  height: var(--colorSize);
-  margin: calc(var(--colorSize)/2) 0 0 calc(var(--colorSize)/2);
-  border: 2px black;
+input[type=color]::-webkit-color-swatch{
+  position:absolute;
+  top:-1px;
+  left:-1px;
+  right:-1px;
+  bottom:-1px;
+  box-sizing: border-box;
+  border:1px solid transparent;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: .4;
+}
+
+.eyedropper-container {
   position: relative;
+  height: 48px;
+  width: 48px;
+}
+
+.eyedropper {
+  pointer-events: none;
+  position: absolute;
   z-index: 1;
-  cursor: pointer;
+  top: 50%;
+  left: 50%;
+  width: 60%;
+  height: 60%;
+  transform: translate(-50%, -50%);
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /**
@@ -64,22 +71,23 @@ input[type=color]::before{
   background-color: #fefefefe;
 }
 
-.controls {
+.toolbar {
   pointer-events: none;
-  width: 100vw;
-  padding: 10px;
   position: fixed;
+  width: 100%;
+  padding: 10px;
   display: flex;
   justify-content: space-between;
 }
 
-.colors {
+
+.colors, .tools {
   pointer-events: all;
   display: flex;
   gap: 10px;
 }
 
-.color {
+.color, .tool {
   height: 48px;
   width: 48px;
   cursor: pointer;
@@ -90,21 +98,6 @@ input[type=color]::before{
 .color.green { background-color: #09BC8A; }
 .color.blue { background-color: #3B429F; }
 .color.yellow { background-color: #F2EA73; }
-
-.tools {
-  display: flex;
-  gap: 10px;
-}
-
-.tool {
-  height: 48px;
-  width: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
 
 .copyright {
   pointer-events: none;

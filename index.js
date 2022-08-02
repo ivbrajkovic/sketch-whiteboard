@@ -1,4 +1,4 @@
-const reload = require('reload')
+const reload = require('reload');
 const express = require('express');
 const app = express();
 const http = require('http').Server(app);
@@ -7,9 +7,12 @@ const port = process.env.PORT || 3000;
 
 app.use(express.static(__dirname + '/public'));
 
-function onConnection(socket){
+function onConnection(socket) {
   socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
-  socket.on('erase', () => socket.broadcast.emit('erase'));
+  socket.on('save', () => socket.broadcast.emit('save'));
+  socket.on('undo', () => socket.broadcast.emit('undo'));
+  socket.on('redo', () => socket.broadcast.emit('redo'));
+  socket.on('clear', () => socket.broadcast.emit('clear'));
 }
 
 io.on('connection', onConnection);

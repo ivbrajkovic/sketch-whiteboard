@@ -1,51 +1,125 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Socket.IO whiteboard</title>
-  <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Socket.IO whiteboard</title>
+    <link rel="stylesheet" href="style.css" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
-</head>
-<body>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <canvas class="whiteboard"></canvas>
 
-  <canvas class="whiteboard" ></canvas>
+    <div class="toolbar">
+      <div class="colors">
+        <div class="color black"></div>
+        <div class="color red"></div>
+        <div class="color green"></div>
+        <div class="color blue"></div>
+        <div class="color yellow"></div>
 
-  <div class="controls">
-    <div class="colors">
-      <div class="color black"></div>
-      <div class="color red"></div>
-      <div class="color green"></div>
-      <div class="color blue"></div>
-      <div class="color yellow"></div>
-      <!-- <input type="color" id="head" name="head" value="#e66465" class="color"> -->
-      <input type="color" value="#ff0000" class="color" style="--value:#ff0000" oninput="this.style.setProperty('--value', this.value)" />
+        <div class="eyedropper-container">
+          <input type="color" value="#ccc9cf" class="color" />
+          <svg
+            version="1.1"
+            id="Capa_1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            x="0px"
+            y="0px"
+            viewBox="0 0 325 325"
+            style="enable-background: new 0 0 325 325"
+            xml:space="preserve"
+            class="eyedropper"
+          >
+            <path
+              d="M312.724,16.641l-4.15-4.151c-16.344-16.344-42.938-16.343-59.279,0.001l-76.068,76.068l-5.738-5.737
+  	c-3.779-3.778-8.806-5.86-14.153-5.861c-0.002,0-0.004,0-0.006,0c-5.351,0-10.378,2.082-14.16,5.866l-1.618,1.621
+  	c-3.781,3.78-5.864,8.81-5.864,14.159c-0.001,5.351,2.082,10.379,5.863,14.159l8.82,8.82L23.177,244.78
+  	c-0.693,0.692-1.206,1.544-1.493,2.48L0.264,317.006c-0.652,2.124-0.078,4.434,1.494,6.005c1.142,1.142,2.675,1.757,4.243,1.757
+  	c0.588,0,1.182-0.087,1.762-0.265l69.742-21.426c0.937-0.287,1.788-0.8,2.48-1.493l123.192-123.191l9.275,9.275
+  	c3.78,3.781,8.809,5.864,14.159,5.864c5.35,0,10.378-2.083,14.16-5.865l1.62-1.621c7.806-7.812,7.805-20.516,0-28.318l-5.733-5.736
+  	l76.069-76.066c0.053-0.053,0.105-0.107,0.154-0.16c7.817-7.897,12.119-18.358,12.118-29.483
+  	C325,35.082,320.64,24.555,312.724,16.641z M72.555,292.044l-57.496,17.664l17.658-57.499l122.137-122.139l39.838,39.838
+  	L72.555,292.044z M304.241,67.436c-0.048,0.048-0.096,0.098-0.143,0.147l-80.167,80.164c-2.343,2.343-2.344,6.142-0.002,8.484
+  	l9.976,9.98c3.129,3.128,3.128,8.22-0.002,11.352l-1.618,1.62c-1.515,1.514-3.53,2.349-5.674,2.349c-2.145,0-4.159-0.834-5.674-2.35
+  	l-74.903-74.902c-1.515-1.515-2.349-3.529-2.349-5.674s0.834-4.159,2.352-5.677l1.62-1.622c1.514-1.515,3.527-2.348,5.671-2.348
+  	c0.001,0,0.002,0,0.002,0c2.145,0,4.159,0.834,5.673,2.348l9.982,9.979c2.344,2.342,6.142,2.343,8.485-0.001l80.31-80.311
+  	c11.664-11.666,30.645-11.662,42.309,0l4.15,4.151c5.65,5.649,8.762,13.161,8.762,21.155C313,54.274,309.89,61.787,304.241,67.436z"
+            />
+          </svg>
+        </div>
+      </div>
+
+      <div class="tools">
+        <div class="tool undo disabled">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22">
+            <path
+              d="m257.75 113.71c-74.42 0-140.28 35.892-181.77 91.16l-75.978-75.995v242.61h242.61l-82.54-82.53c21.931-66.52 84.47-114.58 158.33-114.58 92.16 0 166.79 74.69 166.79 166.8.0001-125.63-101.82-227.45-227.43-227.45"
+              transform="matrix(.04122 0 0 .04122 1 .998)"
+              fill="#4d4d4d"
+            />
+          </svg>
+        </div>
+        <div class="tool redo disabled">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22">
+            <path
+              d="m257.75 113.71c-74.42 0-140.28 35.892-181.77 91.16l-75.978-75.995v242.61h242.61l-82.54-82.53c21.931-66.52 84.47-114.58 158.33-114.58 92.16 0 166.79 74.69 166.79 166.8.0001-125.63-101.82-227.45-227.43-227.45"
+              transform="matrix(-.04122 0 0 .04122 21 .998)"
+              fill="#4d4d4d"
+            />
+          </svg>
+        </div>
+        <div class="tool clear disabled">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 128 128"
+            width="42"
+            height="42"
+          >
+            <path
+              fill="#fff"
+              d="M84,124H44c-11.05,0-20-8.95-20-20V38h80v66C104,115.05,95.05,124,84,124z"
+            />
+            <path
+              fill="#fff"
+              d="M104,38H24c-5.52,0-10-4.48-10-10v0c0-5.52,4.48-10,10-10h80c5.52,0,10,4.48,10,10v0 C114,33.52,109.52,38,104,38z"
+            />
+            <path
+              fill="#444b54"
+              d="M117,28c0-7.17-5.83-13-13-13H24c-7.17,0-13,5.83-13,13s5.83,13,13,13h77v63c0,9.37-7.63,17-17,17H44 c-9.37,0-17-7.63-17-17V52c0-1.66-1.34-3-3-3s-3,1.34-3,3v52c0,12.68,10.32,23,23,23h40c12.68,0,23-10.32,23-23V40.64 C112.72,39.28,117,34.13,117,28z M104,35H24c-3.86,0-7-3.14-7-7s3.14-7,7-7h80c3.86,0,7,3.14,7,7S107.86,35,104,35z"
+            />
+            <path
+              fill="#444b54"
+              d="M79,7H49c-1.66,0-3-1.34-3-3s1.34-3,3-3h30c1.66,0,3,1.34,3,3S80.66,7,79,7z"
+            />
+            <path
+              fill="#71c2ff"
+              d="M50,107c-1.66,0-3-1.34-3-3V58c0-1.66,1.34-3,3-3s3,1.34,3,3v46C53,105.66,51.66,107,50,107z"
+            />
+            <path
+              fill="#71c2ff"
+              d="M78,107c-1.66,0-3-1.34-3-3V58c0-1.66,1.34-3,3-3s3,1.34,3,3v46C81,105.66,79.66,107,78,107z"
+            />
+          </svg>
+        </div>
+      </div>
     </div>
 
-    <div class="tools">
-      <!-- <div class="tool brush"></div> -->
-      <div class="tool eraser">
-        <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 128 128" width="64px" height="64px">
-          <path fill="#fff" d="M84,124H44c-11.05,0-20-8.95-20-20V38h80v66C104,115.05,95.05,124,84,124z"/>
-          <path fill="#fff" d="M104,38H24c-5.52,0-10-4.48-10-10v0c0-5.52,4.48-10,10-10h80c5.52,0,10,4.48,10,10v0 C114,33.52,109.52,38,104,38z"/>
-          <path fill="#444b54" d="M117,28c0-7.17-5.83-13-13-13H24c-7.17,0-13,5.83-13,13s5.83,13,13,13h77v63c0,9.37-7.63,17-17,17H44 c-9.37,0-17-7.63-17-17V52c0-1.66-1.34-3-3-3s-3,1.34-3,3v52c0,12.68,10.32,23,23,23h40c12.68,0,23-10.32,23-23V40.64 C112.72,39.28,117,34.13,117,28z M104,35H24c-3.86,0-7-3.14-7-7s3.14-7,7-7h80c3.86,0,7,3.14,7,7S107.86,35,104,35z"/>
-          <path fill="#444b54" d="M79,7H49c-1.66,0-3-1.34-3-3s1.34-3,3-3h30c1.66,0,3,1.34,3,3S80.66,7,79,7z"/>
-          <path fill="#71c2ff" d="M50,107c-1.66,0-3-1.34-3-3V58c0-1.66,1.34-3,3-3s3,1.34,3,3v46C53,105.66,51.66,107,50,107z"/>
-          <path fill="#71c2ff" d="M78,107c-1.66,0-3-1.34-3-3V58c0-1.66,1.34-3,3-3s3,1.34,3,3v46C81,105.66,79.66,107,78,107z"/>
-        </svg>
-      </div>
-      <!-- <div class="tool bucket"></div> -->
-      <!-- <div class="tool text"></div> -->
-  </div>
+    <p class="copyright">
+      2022 ©
+      <a target="_blank" href="https://github.com/ivbrajkovic" class="link"
+        >Ivan Brajković</a
+      >
+    </p>
 
-  <p class="copyright">
-    2022 © <a target="_blank" href="https://github.com/ivbrajkovic" class="link">Ivan Brajković</a>
-  </p>
-
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="/main.js"></script>
-  <script src="/reload/reload.js"></script> 
-</body>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/main.js"></script>
+    <script src="/reload/reload.js"></script>
+  </body>
 </html>
