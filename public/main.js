@@ -195,7 +195,11 @@ function redoCanvas(emit) {
   if (emit) socket.emit('redo');
 }
 
-function setDisabled(elem, disabled, elements = [elem]) {
+function setDisabled(
+  elem,
+  disabled,
+  elements = Array.isArray(elem) ? elem : [elem]
+) {
   elements.forEach((el) => {
     el.classList[disabled ? 'add' : 'remove']('disabled');
   });
