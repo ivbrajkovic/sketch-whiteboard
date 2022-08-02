@@ -1,0 +1,68 @@
+
+/**
+ * Fix user-agent
+ */
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/**
+ * Canvas
+ */
+
+.whiteboard {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background-color: #fefefefe;
+}
+
+.controls {
+  width: 100vw;
+  padding: 10px;
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+}
+
+.colors {
+  display: flex;
+  gap: 10px;
+}
+
+.color {
+  height: 48px;
+  width: 48px;
+  cursor: pointer;
+}
+
+.color.black { background-color: black; }
+.color.red { background-color: #EA3136; }
+.color.green { background-color: #09BC8A; }
+.color.blue { background-color: #3B429F; }
+.color.yellow { background-color: #F2EA73; }
+
+.tools {
+  display: flex;
+  gap: 10px;
+}
+
+.tool {
+  height: 48px;
+  width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
