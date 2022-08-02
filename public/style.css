@@ -1,5 +1,13 @@
 
 /**
+  * Variables
+  */
+  
+:root {
+  --colorSize: 48px;
+}
+
+/**
  * Fix user-agent
  */
 
@@ -12,6 +20,33 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
+}
+
+input[type=color]{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  width: 0;
+  height: 0;
+  background: white;
+  margin: calc(var(--colorSize)/-2) 0 0 calc(var(--colorSize)/-2);
+}
+  
+input[type=color]::before{
+  content: '';
+  display: block;
+  background: var(--value);
+  text-transform: uppercase;
+  width: var(--colorSize);
+  height: var(--colorSize);
+  margin: calc(var(--colorSize)/2) 0 0 calc(var(--colorSize)/2);
+  border: 2px black;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
 }
 
 /**
@@ -30,6 +65,7 @@ html, body {
 }
 
 .controls {
+  pointer-events: none;
   width: 100vw;
   padding: 10px;
   position: fixed;
@@ -38,6 +74,7 @@ html, body {
 }
 
 .colors {
+  pointer-events: all;
   display: flex;
   gap: 10px;
 }

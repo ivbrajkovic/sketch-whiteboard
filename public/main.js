@@ -22,7 +22,8 @@
   canvas.addEventListener('touchmove', throttle(onMouseMove, 10), false);
 
   for (let i = 0; i < colors.length; i++){
-    colors[i].addEventListener('click', onColorUpdate, false);
+    const event = colors[i].type === 'color' ? "change" : 'click';
+    colors[i].addEventListener(event, onColorUpdate, false);
   }
 
   console.log(eraser);
@@ -76,9 +77,8 @@
   }
 
   function onColorUpdate(e){
-    const style = getComputedStyle(e.target)
-    current.color = style.backgroundColor;
-    // current.color = e.target.className.split(' ')[1];
+    const color = e.target.type === 'color' ? e.target.value : getComputedStyle(e.target).backgroundColor;
+    current.color = color;
   }
 
   // limit the number of events per second
