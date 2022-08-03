@@ -84,8 +84,8 @@ class Whiteboard {
     this.drawLine(
       this.mouse.x,
       this.mouse.y,
-      e.clientX || e.touches[0].clientX,
-      e.clientY || e.touches[0].clientY,
+      e.clientX || e.touches[0]?.clientX || e.changedTouches[0]?.clientX,
+      e.clientY || e.touches[0]?.clientY || e.changedTouches[0]?.clientY,
       this.color,
       true
     );
@@ -187,14 +187,19 @@ class Whiteboard {
   };
 
   undoCanvas = (emit) => {
+    if (this.step < 1) return;
+
     this.drawImage(this.canvasState[--this.step]);
     this.setDisabled(this.redo, false);
 
-    if (!this.step) this.setDisabled(this.undo, true);
+    if (this.step < 1) this.setDisabled(this.undo, true);
     if (emit) this.socket.emit('undo');
   };
 
   redoCanvas = (emit) => {
+    if (!this.canvasState.length || this.step === this.canvasState.length - 1)
+      return;
+
     this.drawImage(this.canvasState[++this.step]);
     this.setDisabled(this.undo, false);
 
